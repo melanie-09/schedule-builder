@@ -20,8 +20,6 @@ def create_server_connection():
         print(f"Error: '{err}'")
     return connection
 
-connection = create_server_connection()
-
 def create_database(connection, query):
     cursor = connection.cursor()
     try:
@@ -30,8 +28,8 @@ def create_database(connection, query):
     except Error as err:
         print(f"Error: '{err}")
 
-create_database_query = "CREATE DATABASE emails"
-create_database(connection, create_database_query)
+#create_database_query = "CREATE DATABASE emails"
+#create_database(connection, create_database_query)
 
 def execute_query(connection, query):
     cursor = connection.cursor()
@@ -51,3 +49,25 @@ def read_query(connection, query):
         return result
     except Error as err:
         print(f"Error: '{err}")
+
+
+# create_employee_table = """
+# CREATE TABLE employee (
+#     employee_id INT AUTO_INCREMENT PRIMARY KEY,
+#     first_name VARCHAR(100),
+#     last_name VARCHAR(100)
+#     );
+# """
+# execute_query(connection, create_employee_table)
+
+create_avail_table = """
+CREATE TABLE availability (
+    avail_id INT AUTO_INCREMENT PRIMARY KEY,
+    employee_id INT,
+    day VARCHAR(9),
+    start_time TIME,
+    end_time TIME,
+    FOREIGN KEY (employee_id) REFERENCES employee(employee_id));
+"""
+connection = create_server_connection()
+execute_query(connection, create_avail_table)
