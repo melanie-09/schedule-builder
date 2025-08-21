@@ -13,6 +13,8 @@ csv_file = "emails1.csv"
 
 email_data = []
 
+week = {"Sunday":[[],[]], "Monday":[[],[],[]], "Tuesday":[[],[],[]], "Wednesday":[[],[],[]], "Thursday":[[],[],[]], "Friday":[[],[],[]], "Saturday":[[],[]]}
+
 for filename in os.listdir(eml_dir):
     if filename.endswith(".eml"):
         with open(os.path.join(eml_dir, filename), "r", encoding="utf-8") as eml_file:
@@ -38,12 +40,19 @@ for filename in os.listdir(eml_dir):
             res = re.findall(r'\S+', text_body)
             firstname = res[0]
             lastname = res[1]
+            firstlast = res[0]+" "+res[1]
 
             times = parser.find_times(text_body)
             #print(times)
 
             free = parser.available(times)
             #print(free)
+            for day in free:
+                for i in range(0,len(free[day])):
+                    if free[day][i] == True:
+                        week[day][i].append(firstlast)
+            print(week)
+
 
 
             email_data.append([firstname, lastname, text_body, date])

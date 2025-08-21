@@ -45,38 +45,38 @@ weekday_shifts = [(time(10,15), time(12,50)), (time(12,50), time(15,30)), (time(
 def available(times):
     # free[0][0] = first sunday slot
     # print(times)
-    free = [[True, True], [True, True, True], [True, True, True], [True, True, True], [True, True, True], [True, True, True], [True, True]]
+    free = {"Sunday":[True, True], "Monday":[True, True, True], "Tuesday":[True, True, True], "Wednesday":[True, True, True], "Thursday":[True, True, True], "Friday":[True, True, True], "Saturday":[True, True]}
     for slot in times:
         match slot[0]:
             case "Sunday":
                 for i in range(0, len(weekend_shifts)):
                     
                     if overlap(weekend_shifts[i][0], weekend_shifts[i][1], slot[1], slot[2]):
-                        free[0][i] = False
+                        free["Sunday"][i] = False
             case "Monday":
                 for i in range(0, len(weekday_shifts)):
                     if overlap(weekday_shifts[i][0], weekday_shifts[i][1], slot[1], slot[2]):
-                        free[1][i] = False
+                        free["Monday"][i] = False
             case "Tuesday": 
                 for i in range(0, len(weekday_shifts)):
                     if overlap(weekday_shifts[i][0], weekday_shifts[i][1], slot[1], slot[2]):
-                        free[2][i] = False
+                        free["Tuesday"][i] = False
             case "Wednesday":
                 for i in range(0, len(weekday_shifts)):
                     if overlap(weekday_shifts[i][0], weekday_shifts[i][1], slot[1], slot[2]):
-                        free[3][i] = False
+                        free["Wednesday"][i] = False
             case "Thursday":
                 for i in range(0, len(weekday_shifts)):
                     if overlap(weekday_shifts[i][0], weekday_shifts[i][1], slot[1], slot[2]):
-                        free[4][i] = False
+                        free["Thursday"][i] = False
             case "Friday":
                 for i in range(0, len(weekday_shifts)):
                     if overlap(weekday_shifts[i][0], weekday_shifts[i][1], slot[1], slot[2]):
-                        free[5][i] = False
+                        free["Friday"][i] = False
             case "Saturday":
                 for i in range(0, len(weekend_shifts)):
                     if overlap(weekend_shifts[i][0], weekend_shifts[i][1], slot[1], slot[2]):
-                        free[6][i] = False     
+                        free["Saturday"][i] = False     
     return free
 
 
